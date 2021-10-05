@@ -5,10 +5,13 @@ import { TodoProvider } from "./contexts/todos-context";
 
 function App() {
   return (
-    <TodoProvider>
-      <NewTodo />
-      <TodosCollection />
-    </TodoProvider>
+    <section className="container">
+      <TodoProvider>
+        <h2> Todo App </h2>
+        <NewTodo />
+        <TodosCollection />
+      </TodoProvider>
+    </section>
   );
 }
 

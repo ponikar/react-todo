@@ -15,7 +15,7 @@ export const NewTodo = () => {
     setNewTodo(INITIAL_STATE);
   };
   return (
-    <section>
+    <section className="new-todo-container">
       <input
         value={newTodo.task}
         name="task"
@@ -23,7 +23,9 @@ export const NewTodo = () => {
         type="text"
       />
 
-      <button onClick={onButtonClick}>Add Todo</button>
+      <button style={{ marginLeft: "5px" }} onClick={onButtonClick}>
+        Add Todo
+      </button>
     </section>
   );
 };

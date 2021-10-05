@@ -1,0 +1,15 @@
+.todo-container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.5px solid #dedede;
+  width: 80%;
+  margin: auto;
+  padding: 4px 0px;
+}
+
+.todo-edit {
+  flex-basis: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
