@@ -6,8 +6,9 @@ export const TodoProvider = ({ children }) => {
   const [todos, setTodos] = useState([
     {
       id: 1,
-      task: "Making a basic Apps",
+      task: "You can edit me",
       completed: true,
+      priority: "normal",
     },
   ]);
 

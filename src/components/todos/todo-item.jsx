@@ -1,22 +1,49 @@
-import React from "react";
-import { useTodos } from "../../contexts/todos-context";
+import React, { useEffect, useState } from "react";
+import { SelectPriorityInput } from "../common/select-priority-input";
+import { TodoItemEdit } from "./todo-item-edit";
+import { TodoPriorityIndicator } from "./todo-priority-indicator";
 
 export const TodoItem = ({ todo }) => {
-  const { id, task, completed } = todo;
-  const { updateTodo, deleteTodo } = useTodos();
+  const { completed } = todo;
+  const [isEditable, setIsEditable] = useState(false);
+  const [editTask, setEditTask] = useState(todo);
+
+  useEffect(() => {
+    setEditTask(todo);
+  }, [todo]);
+
+  const onChange = (e) => {
+    setEditTask({ ...editTask, [e.target.name]: e.target.value });
+  };
+  const resetTodo = () => {
+    setEditTask(todo);
+    setIsEditable(false);
+  };
   return (
     <li className="todo-container">
-      <p style={{ textDecoration: completed ? "line-through" : "none" }}>
-        {task}
-      </p>
-      <div className="todo-edit">
+      <div className="todo-preview">
+        <TodoPriorityIndicator priority={editTask.priority} />
         <input
-          checked={completed}
-          onChange={(e) => updateTodo(id, { ...todo, completed: !completed })}
-          type="checkbox"
+          type="text"
+          onChange={onChange}
+          value={editTask.task}
+          readOnly={!isEditable}
+          style={{
+            borderWidth: isEditable ? "1px" : "0px",
+            textDecoration: !isEditable && completed ? "line-through" : "none",
+          }}
+          name="task"
+          className="todo-edit-input"
         />
-        <button onClick={(_) => deleteTodo(id)}>Delete</button>
+        {isEditable && (
+          <SelectPriorityInput
+            name="priority"
+            value={editTask.priority}
+            onChange={onChange}
+          />
+        )}
       </div>
+      <TodoItemEdit {...{ resetTodo, isEditable, setIsEditable, editTask }} />
     </li>
   );
 };

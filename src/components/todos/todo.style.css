@@ -1,10 +1,11 @@
 .todo-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 0.5px solid #dedede;
-  width: 80%;
+  width: 80vw;
   margin: auto;
-  padding: 4px 0px;
+  padding: 8px 0px;
 }
 
 .todo-edit {
@@ -12,4 +13,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.todo-edit-button {
+  margin: 0px 8px;
+  background-color: blanchedalmond;
+  border-color: blanchedalmond;
+}
+
+.todo-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.todo-preview > input,
+select {
+  margin: 0px 10px;
+}
+.todo-edit-input {
+  width: auto;
+}
+
+.todo-edit-input:focus {
+  outline: none;
 }
