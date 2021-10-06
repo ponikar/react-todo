@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { getTodos } from "../utils/local-storage";
 
 const TodoContext = createContext([]);
 
@@ -11,6 +12,11 @@ export const TodoProvider = ({ children }) => {
       priority: "normal",
     },
   ]);
+
+  useEffect(() => {
+    const todos = getTodos();
+    if (todos) setTodos(todos);
+  }, []);
 
   const createTodo = (todo) => {
     setTodos([...todos, todo]);

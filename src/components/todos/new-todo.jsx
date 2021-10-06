@@ -1,12 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTodos } from "../../contexts/todos-context";
+import { saveTodos } from "../../utils/local-storage";
 import { SelectPriorityInput } from "../common/select-priority-input";
+import { TodoButton } from "./todo-button";
 
 const INITIAL_STATE = { task: "", completed: false, priority: "normal" };
 export const NewTodo = () => {
-  const { createTodo } = useTodos();
+  const { createTodo, todos } = useTodos();
   const [newTodo, setNewTodo] = useState(INITIAL_STATE);
   const inputRef = useRef(null);
+  const [isSaved, setIsSaved] = useState(false);
 
   const onInputChange = (e) => {
     setNewTodo({ ...newTodo, [e.target.name]: e.target.value });
@@ -16,6 +19,16 @@ export const NewTodo = () => {
     if (!newTodo.task) return inputRef.current.focus();
     createTodo({ ...newTodo, id: new Date().getTime() });
     setNewTodo(INITIAL_STATE);
+  };
+
+  useEffect(() => {
+    // if someone updates todos,
+    setIsSaved(false);
+  }, [todos]);
+
+  const saveTodosBrowser = () => {
+    saveTodos(todos);
+    setIsSaved(true);
   };
   return (
     <section className="new-todo-container">
@@ -32,9 +45,10 @@ export const NewTodo = () => {
         onChange={onInputChange}
         name="priority"
       />
-      <button style={{ marginLeft: "5px" }} onClick={onButtonClick}>
-        Add Todo
-      </button>
+      <TodoButton onClick={onButtonClick}>Add Todo</TodoButton>
+      <TodoButton onClick={saveTodosBrowser}>
+        {isSaved ? "Todo Saved" : "Save Todos"}
+      </TodoButton>
     </section>
   );
 };
