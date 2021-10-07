@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useTodos } from "../../contexts/todos-context";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../store/todo/todo.reducer";
+import { useSelectTodo } from "../../store/todo/todo.selectors";
 import { saveTodos } from "../../utils/local-storage";
 import { SelectPriorityInput } from "../common/select-priority-input";
 import { TodoButton } from "./todo-button";
 
 const INITIAL_STATE = { task: "", completed: false, priority: "normal" };
 export const NewTodo = () => {
-  const { createTodo, todos } = useTodos();
+  const todos = useSelectTodo();
+
+  const dispatch = useDispatch();
+
   const [newTodo, setNewTodo] = useState(INITIAL_STATE);
   const inputRef = useRef(null);
   const [isSaved, setIsSaved] = useState(false);
@@ -17,7 +22,7 @@ export const NewTodo = () => {
 
   const onButtonClick = () => {
     if (!newTodo.task) return inputRef.current.focus();
-    createTodo({ ...newTodo, id: new Date().getTime() });
+    dispatch(addTodo({ ...newTodo, id: new Date().getTime() }));
     setNewTodo(INITIAL_STATE);
   };
 

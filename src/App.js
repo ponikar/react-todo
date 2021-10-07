@@ -1,17 +1,18 @@
+import { Provider } from "react-redux";
 import "./App.css";
 import { NewTodo } from "./components/todos/new-todo";
 import { TodosCollection } from "./components/todos/todo-collection";
-import { TodoProvider } from "./contexts/todos-context";
+import { store } from "./store/store";
 
 function App() {
   return (
-    <section className="container">
-      <TodoProvider>
+    <Provider store={store}>
+      <section className="container">
         <h2> Todo App </h2>
         <NewTodo />
         <TodosCollection />
-      </TodoProvider>
-    </section>
+      </section>
+    </Provider>
   );
 }
 

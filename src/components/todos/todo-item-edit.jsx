@@ -1,5 +1,6 @@
 import React from "react";
-import { useTodos } from "../../contexts/todos-context";
+import { useDispatch } from "react-redux";
+import { removeTodo, updateTodo } from "../../store/todo/todo.reducer";
 import { TodoButton } from "./todo-button";
 
 export const TodoItemEdit = ({
@@ -7,28 +8,34 @@ export const TodoItemEdit = ({
   setIsEditable,
   editTask,
   resetTodo,
+  index,
 }) => {
+  const payload = { index };
+  const dispatch = useDispatch();
   const onEdit = (_) => {
     if (!isEditable) return setIsEditable(true);
-    updateTodo(editTask.id, { ...editTask });
+    updateTodo(payload, { ...editTask });
     setIsEditable(false);
   };
-  const { updateTodo, deleteTodo } = useTodos();
   return (
     <div className="todo-edit">
       <input
         checked={editTask.completed}
         onChange={(e) =>
-          updateTodo(editTask.id, {
-            ...editTask,
-            completed: !editTask.completed,
-          })
+          dispatch(
+            updateTodo({
+              ...payload,
+              todo: { ...editTask, completed: !editTask.completed },
+            })
+          )
         }
         type="checkbox"
       />
       <TodoButton onClick={onEdit}>{isEditable ? "Save" : "Edit"}</TodoButton>
       {isEditable && <TodoButton onClick={resetTodo}>Cancel</TodoButton>}
-      <TodoButton onClick={(_) => deleteTodo(editTask.id)}>Delete</TodoButton>
+      <TodoButton onClick={(_) => dispatch(removeTodo(payload))}>
+        Delete
+      </TodoButton>
     </div>
   );
 };

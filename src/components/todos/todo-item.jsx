@@ -3,7 +3,7 @@ import { SelectPriorityInput } from "../common/select-priority-input";
 import { TodoItemEdit } from "./todo-item-edit";
 import { TodoPriorityIndicator } from "./todo-priority-indicator";
 
-export const TodoItem = ({ todo }) => {
+export const TodoItem = ({ todo, index }) => {
   const { completed } = todo;
   const [isEditable, setIsEditable] = useState(false);
   const [editTask, setEditTask] = useState(todo);
@@ -43,7 +43,9 @@ export const TodoItem = ({ todo }) => {
           />
         )}
       </div>
-      <TodoItemEdit {...{ resetTodo, isEditable, setIsEditable, editTask }} />
+      <TodoItemEdit
+        {...{ resetTodo, isEditable, setIsEditable, editTask, index }}
+      />
     </li>
   );
 };
