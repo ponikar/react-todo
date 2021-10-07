@@ -49,3 +49,26 @@ select {
 .no-todo-container > img {
   width: 60%;
 }
+
+.filter-container {
+  display: flex;
+  margin: 1rem 0px;
+}
+
+.filter-container > div {
+  padding: 0.3rem 0.5rem;
+  text-transform: uppercase;
+  font-weight: medium;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.selected-filter {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: bisque;
+  background-color: bisque;
+}
+
+.filter-not-selected {
+  color: darkgray;
+}
