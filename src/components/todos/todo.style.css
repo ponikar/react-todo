@@ -37,3 +37,15 @@ select {
 .todo-edit-input:focus {
   outline: none;
 }
+
+.no-todo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.no-todo-container > img {
+  width: 60%;
+}
